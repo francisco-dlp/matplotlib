@@ -780,7 +780,7 @@ def subplot(*args, **kwargs):
 
 
 def subplots(nrows=1, ncols=1, sharex=False, sharey=False, squeeze=True,
-                subplot_kw=None, **fig_kw):
+                subplot_kw=None, fig=None, **fig_kw):
     """
     Create a figure with a set of subplots already made.
 
@@ -839,6 +839,10 @@ def subplots(nrows=1, ncols=1, sharex=False, sharey=False, squeeze=True,
         Dict with keywords passed to the
         :meth:`~matplotlib.figure.Figure.add_subplot` call used to
         create each subplots.
+        
+      *fig* : None or Figure
+        If None (default) a new figure will be created. If a Figure, the axes
+        will be created into the given figure.  
 
       *fig_kw* : dict
         Dict with keywords passed to the :func:`figure` call.  Note that all
@@ -906,8 +910,8 @@ def subplots(nrows=1, ncols=1, sharex=False, sharey=False, squeeze=True,
 
     if subplot_kw is None:
         subplot_kw = {}
-
-    fig = figure(**fig_kw)
+        
+    fig = figure(**fig_kw) if fig is None else fig
 
     # Create empty object array to hold all axes.  It's easiest to make it 1-d
     # so we can just append subplots upon creation, and then
